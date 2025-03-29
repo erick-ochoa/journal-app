@@ -16,17 +16,17 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
 
   const { email, password, onInputChange } = useForm({
-    email: 'erick.ochoa.vls@gmail.com',
+    email: '',
     password: ''
   })
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(checkingAuthendication(email, password))
+    dispatch(checkingAuthendication())
   }
 
   const onGoogleSingIn = () => {
-    dispatch(startGoogleSingIn(email, password))
+    dispatch(startGoogleSingIn())
   }
 
   return (
