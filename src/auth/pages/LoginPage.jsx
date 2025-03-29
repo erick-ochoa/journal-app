@@ -3,10 +3,15 @@ import { Button, Grid, TextField, Typography, Link } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
 import { AuthLayout } from "../layout/AuthLayout"
 import { useForm } from "../../hooks/useForm"
-import { checkingAuthendication } from "../../store/slices/auth/thunks"
-import { useDispatch } from "react-redux"
+import { checkingAuthendication, startGoogleSingIn } from "../../store/slices/auth/thunks"
+import { useDispatch, useSelector } from "react-redux"
+import { useMemo } from "react"
 
 export const LoginPage = () => {
+
+  const { status } = useSelector(state => state.auth)
+
+  const isCheckingAuth = useMemo(() => status === 'checking' ? true : false, [status])
 
   const dispatch = useDispatch();
 
@@ -21,7 +26,7 @@ export const LoginPage = () => {
   }
 
   const onGoogleSingIn = () => {
-    dispatch(checkingAuthendication(email, password))
+    dispatch(startGoogleSingIn(email, password))
   }
 
   return (
@@ -56,14 +61,29 @@ export const LoginPage = () => {
           </Grid>
 
           <Grid container spacing={2} sx={{ mb: 1, mt: 1 }}>
+
             <Grid item xs={12} sm={6}>
-              <Button type="submit" variant="contained" fullWidth>Login</Button>
+              <Button
+                disabled={isCheckingAuth}
+                type="submit"
+                variant="contained"
+                fullWidth
+              >
+                Login
+              </Button>
             </Grid>
+
             <Grid item xs={12} sm={6}>
-              <Button onClick={onGoogleSingIn} variant="outlined" fullWidth>
+              <Button
+                disabled={isCheckingAuth}
+                onClick={onGoogleSingIn}
+                variant="outlined"
+                fullWidth
+              >
                 <Google /> <Typography sx={{ ml: 1 }}>Google</Typography>
               </Button>
             </Grid>
+
           </Grid>
 
           <Grid container direction="row" justifyContent="center" sx={{ mt: 2 }}>
