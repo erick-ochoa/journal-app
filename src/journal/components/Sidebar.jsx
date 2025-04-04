@@ -3,7 +3,7 @@ import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIco
 import { useSelector } from "react-redux"
 
 export const Sidebar = ({ drawerWidth }) => {
-    const { displayName } = useSelector(state => state.auth)
+    const { displayName, photoURL } = useSelector(state => state.auth)
     return (
         <Box component={"nav"} sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} >
             <Drawer
@@ -15,6 +15,7 @@ export const Sidebar = ({ drawerWidth }) => {
                 }}
             >
                 <Toolbar>
+                    <img className="photoURL" src={photoURL} alt=""/>
                     <Typography variant="h6" noWrap component={"div"}>
                         {displayName}
                     </Typography>
