@@ -2,7 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { firebaseAuth } from '../firebase/config'
-import { login, logout } from '../store/slices/auth/AuthSlice'
+import { login, logout } from '../store/auth/AuthSlice'
 
 export const useCheckAurth = () => {
     const { status } = useSelector(state => state.auth)

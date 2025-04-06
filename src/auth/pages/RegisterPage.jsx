@@ -1,7 +1,7 @@
 import { AuthLayout } from "../layout/AuthLayout"
 import { Button, Grid, TextField, Link, Typography, Alert } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
-import { startCreatedEmailAndPassword } from "../../store/slices/auth/thunks"
+import { startCreatedEmailAndPassword } from "../../store/auth/thunks"
 import { useDispatch, useSelector } from "react-redux"
 import { useForm } from "../../hooks/useForm"
 import { useMemo, useState } from "react"
