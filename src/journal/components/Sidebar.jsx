@@ -1,9 +1,11 @@
-import { TurnedInNot } from "@mui/icons-material"
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material"
 import { useSelector } from "react-redux"
+import { SidebarItem } from "./SidebarItem"
 
 export const Sidebar = ({ drawerWidth }) => {
     const { displayName, photoURL } = useSelector(state => state.auth)
+    const { notes } = useSelector(state => state.journal)
+
     return (
         <Box component={"nav"} sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} >
             <Drawer
@@ -15,7 +17,7 @@ export const Sidebar = ({ drawerWidth }) => {
                 }}
             >
                 <Toolbar>
-                    <img className="photoURL" src={photoURL} alt=""/>
+                    <img className="photoURL" src={photoURL} alt="" />
                     <Typography variant="h6" noWrap component={"div"}>
                         {displayName}
                     </Typography>
@@ -25,32 +27,15 @@ export const Sidebar = ({ drawerWidth }) => {
 
                 <List>
                     {
-                        [
-                            'Enero',
-                            'Febrero',
-                            'Marzo',
-                            'Abril',
-                            'Mayo',
-                            'Junio',
-                            'Julio',
-                            'Agosto',
-                            'Septiembre',
-                            'Octubre',
-                            'Noviembre',
-                            'Diciembre'
-                        ].map(text => (
-                            <ListItem key={text}>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <TurnedInNot />
-                                    </ListItemIcon>
-                                    <Grid container>
-                                        <ListItemText primary={text} />
-                                        <ListItemText secondary={'Entrada de menu'} />
-                                    </Grid>
-                                </ListItemButton>
-                            </ListItem>
-
+                        notes.map(({ id, title, body, date, imagesUrls }) => (
+                            <SidebarItem 
+                                key={id} 
+                                id={id}
+                                title={title}
+                                body={body}
+                                date={date}
+                                imagesUrls={imagesUrls}
+                            />
                         ))
                     }
                 </List>
