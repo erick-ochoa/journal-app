@@ -7,6 +7,11 @@ import { startGoogleSingIn, startLoginWithEmailAndPassword } from "../../store/a
 import { useDispatch, useSelector } from "react-redux"
 import { useMemo } from "react"
 
+const initialForm = {
+  email: '',
+  password: ''
+}
+
 export const LoginPage = () => {
 
   const { status, errorMessage } = useSelector(state => state.auth)
@@ -15,10 +20,7 @@ export const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const { email, password, onInputChange } = useForm({
-    email: '',
-    password: ''
-  })
+  const { email, password, onInputChange } = useForm(initialForm)
 
   const onSubmit = (event) => {
     event.preventDefault();

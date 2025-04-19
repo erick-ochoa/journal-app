@@ -11,14 +11,6 @@ export const SidebarItem = ({ id, title, body, date, imagesUrls = [] }) => {
         dispatch(setActiveNote({ id, title, body, date, imagesUrls }))
     }
 
-    if (title.length > 17) {
-        title = title.substring(0, 17) + '...'
-    }
-
-    if (body.length > 17) {
-        body = body.substring(0, 17) + '...'
-    }
-
     return (
         <ListItem disablePadding onClick={onActiveNote}>
             <ListItemButton >
@@ -26,8 +18,8 @@ export const SidebarItem = ({ id, title, body, date, imagesUrls = [] }) => {
                     <TurnedInNot />
                 </ListItemIcon>
                 <Grid container>
-                    <ListItemText primary={title} />
-                    <ListItemText secondary={body} />
+                    <ListItemText primary={title.length > 17 ? title.substring(0, 17) + '...' : title} />
+                    <ListItemText secondary={body.length > 17 ? body.substring(0, 17) + '...' : body} />
                 </Grid>
             </ListItemButton>
         </ListItem>
