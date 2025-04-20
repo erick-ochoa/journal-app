@@ -37,17 +37,17 @@ export const startLoadingNotes = () => {
 export const startSaveNote = () => {
     return async (dispatch, getState) => {
         dispatch(setSaving())
-        
+
         const { uid } = getState().auth
         const { active } = getState().journal
 
-        const note = {...active}
+        const note = { ...active }
         delete note.id
 
-        const docRef = doc( FirebaseDB, `${uid}/journal/notes/${active.id}` )
-        await setDoc( docRef, note, {merge: true} )
+        const docRef = doc(FirebaseDB, `${uid}/journal/notes/${active.id}`)
+        await setDoc(docRef, note, { merge: true })
 
         dispatch(updateNote(active))
-        
+
     };
 }

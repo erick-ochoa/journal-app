@@ -6,19 +6,27 @@ import { useForm } from "../../hooks/useForm"
 import { useEffect } from "react"
 import { setActiveNote } from "../../store/journal/journalSlice"
 import { startSaveNote } from "../../store/journal/thunks"
+import Swal from "sweetalert2"
+import 'sweetalert2/dist/sweetalert2.css'
 
 export const NoteView = () => {
 
     const dispatch = useDispatch()
-    const {active:note, isSaving} = useSelector( state => state.journal )
-    const { title, body, date, onInputChange, formState } = useForm( note )
+    const { active: note, isSaving, messageSaved } = useSelector(state => state.journal)
+    const { title, body, date, onInputChange, formState } = useForm(note)
 
     useEffect(() => {
-      dispatch( setActiveNote(formState) )
+        dispatch(setActiveNote(formState))
     }, [formState])
-    
-    const onSaveNote = () => {        
-        dispatch( startSaveNote() )
+
+    useEffect(() => {
+        if (messageSaved != '') {
+            Swal.fire('Nota actualizada', messageSaved, 'success')
+        }
+    }, [messageSaved])
+
+    const onSaveNote = () => {
+        dispatch(startSaveNote())
     }
 
     return (
@@ -36,15 +44,15 @@ export const NoteView = () => {
                     fontSize={39}
                     fontWeight="light"
                 >
-                    { new Date(date).toUTCString() }
+                    {new Date(date).toUTCString()}
                 </Typography>
             </Grid>
 
             <Grid item>
-                <Button 
+                <Button
                     disabled={isSaving}
-                    onClick={onSaveNote} 
-                    color="primary" 
+                    onClick={onSaveNote}
+                    color="primary"
                     sx={{ padding: 2 }}
                 >
                     <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
